@@ -13,6 +13,13 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        let yelp = YelpService()
+        yelp.search(withTerm: "Vegan", sort: nil, categories: [], deals: nil, onSuccess: { results -> Void in
+            print(results)
+        }) { error -> Void in
+            print(error)
+        }
     }
 
     override func didReceiveMemoryWarning() {

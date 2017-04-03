@@ -9,5 +9,6 @@ target 'YelpSearch' do
   pod 'Unbox'
   pod 'AFNetworking'
   pod 'KRProgressHUD'
+  pod 'OAuthSwift'
 
 end
