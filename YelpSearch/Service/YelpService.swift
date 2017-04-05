@@ -9,6 +9,7 @@
 import UIKit
 import Unbox
 import OAuthSwift
+import CoreLocation
 
 let yelpConsumerKey = "mkRwV11HOYiZpLrs9Rht_Q"
 let yelpConsumerSecret = "dJhb59MaPlPPb1TZHkBLuxtSXXk"
@@ -25,9 +26,12 @@ enum SortType: Int {
 
 class YelpService {
 
-    func search(withTerm term: String, sort: SortType?, categories: [String]?, deals: Bool?, onSuccess: @escaping response, onError: @escaping failure) {
+    func search(withTerm term: String, location: CLLocationCoordinate2D, sort: SortType?, categories: [String]?, deals: Bool?, onSuccess: @escaping response, onError: @escaping failure) {
 
-        var parameters: [String : AnyObject] = ["term": term as AnyObject, "ll": "37.785771,-122.406165" as AnyObject]
+        let latitudeText: String = "\(location.latitude)"
+        let longitudeText: String = "\(location.longitude)"
+        let locationString = String(format: "%@,%@", latitudeText,longitudeText)
+        var parameters: [String : AnyObject] = ["term": term as AnyObject, "ll": locationString  as AnyObject]
 
         if sort != nil {
             parameters["sort"] = sort!.rawValue as AnyObject?

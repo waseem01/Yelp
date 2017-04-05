@@ -10,5 +10,6 @@ target 'YelpSearch' do
   pod 'AFNetworking'
   pod 'KRProgressHUD'
   pod 'OAuthSwift'
+  pod 'INTULocationManager'
 
 end

@@ -7,12 +7,17 @@
 //
 
 import UIKit
+import CoreLocation
+import INTULocationManager
+import KRProgressHUD
 
 class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var mapButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+
+    var userLocation = CLLocationCoordinate2D(latitude: 37.785771, longitude: -122.406165) //Default to SF
     var businesses = [Business]()
 
     override func viewDidLoad() {
@@ -21,17 +26,24 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.delegate = self
         tableView.dataSource = self
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120  
+        tableView.estimatedRowHeight = 120
 
-        let yelp = YelpService()
-        yelp.search(withTerm: "Vegan", sort: nil, categories: [], deals: nil, onSuccess: { results -> Void in
-            self.businesses = results
-            self.tableView.reloadData()
-        }) { error -> Void in
-            print(error)
+        KRProgressHUD.set(style: .blackColor)
+        KRProgressHUD.set(activityIndicatorStyle: .color(.red, .red))
+        KRProgressHUD.show()
+        let locationManager = INTULocationManager.sharedInstance()
+        locationManager.requestLocation(withDesiredAccuracy: .neighborhood, timeout: 5.0, delayUntilAuthorized: true) { (location, accuracy, status) in
+            if location != nil {
+                self.userLocation = (location?.coordinate)!
+            }
+            YelpService().search(withTerm: "Vegan", location: self.userLocation, sort: nil, categories: [], deals: nil, onSuccess: { results -> Void in
+                self.businesses = results
+                self.tableView.reloadData()
+            }) { error -> Void in
+                print(error)
+            }
         }
     }
-
 
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -44,10 +56,12 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
         return cell
     }
 
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        KRProgressHUD.dismiss()
+    }
+
     @IBAction func filterTapped(_ sender: UIBarButtonItem) {
     }
     @IBAction func mapTapped(_ sender: UIBarButtonItem) {
     }
-    // MARK: - Navigation
-
 }
