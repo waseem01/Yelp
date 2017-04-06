@@ -11,7 +11,7 @@ import CoreLocation
 import INTULocationManager
 import KRProgressHUD
 
-class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, FiltersViewControllerDelegate {
 
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var mapButton: UIBarButtonItem!
@@ -19,6 +19,8 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
 
     var userLocation = CLLocationCoordinate2D(latitude: 37.785771, longitude: -122.406165) //Default to SF
     var businesses = [Business]()
+    var switchStates = [String : AnyObject]()
+    var preferredFilters = PreferredFilters(dealOffered: false, distance: 0, sort: 0, categories: [])
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +47,34 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let navigationController = segue.destination as! UINavigationController
+        let filtersViewController = navigationController.topViewController as! YelpFiltersViewController
+        filtersViewController.preferredFilters = preferredFilters
+        filtersViewController.delegate = self
+    }
+
+    func filtersViewController(filtersViewController: YelpFiltersViewController, didUpdateFilters filters: PreferredFilters) {
+
+
+//        YelpService().search(withTerm: "Vegan", location: self.userLocation, sort: filters.sort.map { SortType(rawValue: Int($0)) }!, categories: filters.categories, deals: filters.dealOffered, onSuccess: { results -> Void in
+//            self.businesses = results
+//            self.tableView.reloadData()
+//        }) { error -> Void in
+//            print(error)
+//        }
+
+        //Search here
+
+    }
+
     // MARK: - UITableViewDelegate
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { //CHECK this
         return businesses.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessViewCell") as! BusinessViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessViewCell", for: indexPath) as! BusinessViewCell
         cell.updateCell(withBusiness: businesses[indexPath.row])
         return cell
     }
