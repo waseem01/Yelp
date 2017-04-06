@@ -127,6 +127,7 @@
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
                                 <action selector="filterTapped:" destination="do4-kX-daP" id="qYP-IQ-Lde"/>
+                                <segue destination="ykV-yz-7Xm" kind="presentation" id="h5N-ZN-VBR"/>
                             </connections>
                         </barButtonItem>
                         <connections>
@@ -150,6 +151,48 @@
             </objects>
             <point key="canvasLocation" x="559.20000000000005" y="183.95802098950526"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="Z5G-th-ma6">
+            <objects>
+                <viewController id="CnD-an-raI" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="L1Y-pH-8ao"/>
+                        <viewControllerLayoutGuide type="bottom" id="FRF-6x-8b9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="suG-TR-J3S">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6kD-tj-qNc">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="6kD-tj-qNc" firstAttribute="top" secondItem="suG-TR-J3S" secondAttribute="top" id="0tA-J3-mDV"/>
+                            <constraint firstAttribute="trailing" secondItem="6kD-tj-qNc" secondAttribute="trailing" id="7jH-Nv-iUz"/>
+                            <constraint firstItem="6kD-tj-qNc" firstAttribute="leading" secondItem="suG-TR-J3S" secondAttribute="leading" id="WKQ-8K-g2J"/>
+                            <constraint firstItem="FRF-6x-8b9" firstAttribute="top" secondItem="6kD-tj-qNc" secondAttribute="bottom" id="l4p-y9-LuA"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="M81-1e-1V1">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="kYZ-gQ-rLz">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="TDa-vn-IIu">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="znA-mz-rhP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2277.5999999999999" y="183.95802098950526"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="o36-Xn-nQ3">
             <objects>
@@ -171,6 +214,27 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wWz-3U-kGH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-380" y="183.95802098950526"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="PTK-pa-GyW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ykV-yz-7Xm" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ort-9s-7qt">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.77487451419999998" green="0.0080716095229999996" blue="0.0080716095229999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="CnD-an-raI" kind="relationship" relationship="rootViewController" id="kdW-Lb-tUt"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="LOC-Sn-M3a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1338.4000000000001" y="183.95802098950526"/>
         </scene>
     </scenes>
 </document>
