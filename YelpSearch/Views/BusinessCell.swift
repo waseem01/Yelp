@@ -11,6 +11,7 @@ import AFNetworking
 
 class BusinessCell: UITableViewCell {
 
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var businessImageView: UIImageView!
     @IBOutlet weak var ratingsImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -29,6 +30,10 @@ class BusinessCell: UITableViewCell {
         self.reviewsLabel.text =  business.reviewCount + " Reviews"
         self.addressLabel.text = business.address.joined(separator: ", ")
         self.categoriesLabel.text = formattedCategories(categoriesArray: business.categories)
+
+        containerView.layer.shadowOffset = CGSize(width: 0, height: 1)
+        containerView.layer.shadowOpacity = 0.25
+        containerView.layer.shadowRadius = 2
     }
 
     private func formattedDistance(distance: String) -> String {
