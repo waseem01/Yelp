@@ -1,5 +1,5 @@
 //
-//  BusinessViewCell.swift
+//  BusinessCell.swift
 //  YelpSearch
 //
 //  Created by Waseem Mohd on 4/4/17.
@@ -9,7 +9,7 @@
 import UIKit
 import AFNetworking
 
-class BusinessViewCell: UITableViewCell {
+class BusinessCell: UITableViewCell {
 
     @IBOutlet weak var businessImageView: UIImageView!
     @IBOutlet weak var ratingsImageView: UIImageView!
