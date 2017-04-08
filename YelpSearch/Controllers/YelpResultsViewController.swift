@@ -57,25 +57,19 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
 
     // MARK: - FiltersViewControllerDelegate
     func filtersViewController(filtersViewController: YelpFiltersViewController, didUpdateFilters filters: PreferredFilters) {
-
-
-        //        YelpService().search(withTerm: "Vegan", location: self.userLocation, sort: filters.sort.map { SortType(rawValue: Int($0)) }!, categories: filters.categories, deals: filters.dealOffered, onSuccess: { results -> Void in
-        //            self.businesses = results
-        //            self.tableView.reloadData()
-        //        }) { error -> Void in
-        //            print(error)
-        //        }
-
-        //Search here
-
+        performSearch(withTerm: searchTerm, deals: filters.dealOffered, distance: filters.distance, sort: filters.sort, categories: filters.categories)
     }
 
     // MARK: - Private Methods
     private func performSearch(withTerm term: String) {
+        performSearch(withTerm: term, deals: nil, distance: nil, sort: nil, categories: nil)
+    }
+
+    private func performSearch(withTerm term: String, deals: Bool?, distance: NSNumber?, sort: Int?, categories: [String]?) {
         KRProgressHUD.set(style: .blackColor)
         KRProgressHUD.set(activityIndicatorStyle: .color(.red, .red))
         KRProgressHUD.show()
-        YelpService().search(withTerm: term, location: self.userLocation, sort: nil, categories: [], deals: nil, onSuccess: { results -> Void in
+        YelpService().search(withTerm: term, location: self.userLocation, deals: deals, distance: distance, sort: sort, categories: categories, onSuccess: { results -> Void in
             self.businesses = results
             self.filteredBusinesses = self.businesses
             self.tableView.reloadData()

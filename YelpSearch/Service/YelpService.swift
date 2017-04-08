@@ -26,23 +26,27 @@ enum SortType: Int {
 
 class YelpService {
 
-    func search(withTerm term: String, location: CLLocationCoordinate2D, sort: SortType?, categories: [String]?, deals: Bool?, onSuccess: @escaping response, onError: @escaping failure) {
+    func search(withTerm term: String, location: CLLocationCoordinate2D, deals: Bool?, distance: NSNumber?, sort: Int?, categories: [String]?, onSuccess: @escaping response, onError: @escaping failure) {
 
         let latitudeText: String = "\(location.latitude)"
         let longitudeText: String = "\(location.longitude)"
         let locationString = String(format: "%@,%@", latitudeText,longitudeText)
         var parameters: [String : AnyObject] = ["term": term as AnyObject, "ll": locationString  as AnyObject]
 
-        if sort != nil {
-            parameters["sort"] = sort!.rawValue as AnyObject?
+        if deals != nil {
+            parameters["deals_filter"] = deals! as AnyObject?
+        }
+
+        if distance != nil {
+            parameters["radius_filter"] = distance! as AnyObject?
+        }
+
+        if let sortValue = sort {
+            parameters["sort"] = sortValue as AnyObject
         }
 
         if categories != nil {
             parameters["category_filter"] = (categories!).joined(separator: ",") as AnyObject?
-        }
-
-        if deals != nil {
-            parameters["deals_filter"] = deals! as AnyObject?
         }
 
         let oauthswift  = OAuth1Swift(
