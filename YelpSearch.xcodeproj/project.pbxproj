@@ -23,6 +23,7 @@
 		1CCFECFC1E948D7E00AB9485 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCFECFB1E948D7E00AB9485 /* BusinessCell.swift */; };
 		1CE12D2C1E93F4350069DC0B /* YelpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE12D2B1E93F4350069DC0B /* YelpService.swift */; };
 		1CE12D2E1E93F5860069DC0B /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CE12D2D1E93F5860069DC0B /* Business.swift */; };
+		1CE164661E9A5D9600A596B2 /* Error.png in Resources */ = {isa = PBXBuildFile; fileRef = 1CE164651E9A5D9600A596B2 /* Error.png */; };
 		9AA52A5E90C69D9410502A30 /* Pods_YelpSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EF01A5D45CF44764E773F8D /* Pods_YelpSearch.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		1CCFECFB1E948D7E00AB9485 /* BusinessCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusinessCell.swift; path = Views/BusinessCell.swift; sourceTree = "<group>"; };
 		1CE12D2B1E93F4350069DC0B /* YelpService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = YelpService.swift; path = Service/YelpService.swift; sourceTree = "<group>"; };
 		1CE12D2D1E93F5860069DC0B /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Business.swift; path = Models/Business.swift; sourceTree = "<group>"; };
+		1CE164651E9A5D9600A596B2 /* Error.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Error.png; path = ../../MovieView/MovieView/Resources/Error.png; sourceTree = "<group>"; };
 		7EF01A5D45CF44764E773F8D /* Pods_YelpSearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_YelpSearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		825C5D094D2EA2B3F132FB3E /* Pods-YelpSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YelpSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-YelpSearch/Pods-YelpSearch.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -131,6 +133,7 @@
 		1CCF18291E9316AE00400418 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1CE164651E9A5D9600A596B2 /* Error.png */,
 				1C8A6D471E9744E500A7FD81 /* arrow.png */,
 			);
 			name = Resources;
@@ -226,6 +229,7 @@
 				1CCF181F1E93157700400418 /* LaunchScreen.storyboard in Resources */,
 				1CCF181C1E93157700400418 /* Assets.xcassets in Resources */,
 				1CCF181A1E93157700400418 /* Main.storyboard in Resources */,
+				1CE164661E9A5D9600A596B2 /* Error.png in Resources */,
 				1C8A6D481E9744E500A7FD81 /* arrow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

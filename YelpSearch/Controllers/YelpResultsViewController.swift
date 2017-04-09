@@ -70,14 +70,57 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
         KRProgressHUD.set(activityIndicatorStyle: .color(.red, .red))
         KRProgressHUD.show()
         YelpService().search(withTerm: term, location: self.userLocation, deals: deals, distance: distance, sort: sort, categories: categories, onSuccess: { results -> Void in
-            self.businesses = results
-            self.filteredBusinesses = self.businesses
-            self.tableView.reloadData()
-            self.mapView.updateMap(businesses: self.filteredBusinesses)
+            if results.count > 0 {
+                self.businesses = results
+                self.filteredBusinesses = self.businesses
+                self.tableView.reloadData()
+                self.mapView.updateMap(businesses: self.filteredBusinesses)
+            } else {
+                KRProgressHUD.dismiss()
+                self.showBannerMessage()
+                self.hideBannerMessage()
+            }
         }) { error -> Void in
             KRProgressHUD.dismiss()
             print(error)
         }
+    }
+
+    private func hideBannerMessage() {
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 1.5,
+            options: .curveEaseOut,
+            animations: {
+                var frame = self.bannerView.frame
+                frame.size.height = 0
+                self.bannerView.frame =  frame
+                frame = self.errorImageView.frame
+                frame.size.height = 0
+                self.errorImageView.frame = frame
+                self.bannerLabel.isHidden = false
+        },
+            completion: { _ in
+        })
+    }
+
+    private func showBannerMessage() {
+        UIView.animate(
+            withDuration: 0.7,
+            delay: 0,
+            options: .curveEaseOut,
+            animations: {
+                var frame = self.bannerView.frame
+                frame.size.height = 30
+                self.bannerView.frame =  frame
+                frame = self.errorImageView.frame
+                frame.size.height = 20
+                self.errorImageView.frame = frame
+                self.bannerLabel.isHidden = false
+
+        },
+            completion: { _ in
+        })
     }
 
     // MARK: - UITableViewDelegate
@@ -121,12 +164,36 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
     //MARK: Properties
     private lazy var mapView: MapView = {
         let location = CLLocation(latitude: self.userLocation.latitude, longitude: self.userLocation.longitude)
-//        let locations = self.filteredBusinesses.flatMap{ $0.location }
+        //        let locations = self.filteredBusinesses.flatMap{ $0.location }
         let view = MapView(userLocation: location, businesses: self.filteredBusinesses)
         view.frame = self.view.bounds
         view.backgroundColor = UIColor.white
         view.isHidden = true
         self.view.addSubview(view)
         return view
+    }()
+
+    private lazy var bannerView: UIView = {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 0))
+        view.backgroundColor = UIColor.darkGray
+        view.alpha = 0.9
+        view.addSubview(self.errorImageView)
+        view.addSubview(self.bannerLabel)
+        self.tableView.addSubview(view)
+        return view
+    }()
+
+    private lazy var errorImageView: UIImageView = {
+        let imageView = UIImageView(frame: CGRect(x: 5, y: 5, width: 20, height: 0))
+        imageView.image = UIImage(named: "Error")
+        return imageView
+    }()
+
+    private lazy var bannerLabel: UILabel = {
+        let label = UILabel(frame: CGRect(x: 35, y: 5, width: self.tableView.frame.width, height: 20))
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 12.0)
+        label.text = "No Results, Please adjust your filters & search"
+        return label
     }()
 }
