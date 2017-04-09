@@ -7,6 +7,7 @@
 //
 
 import Unbox
+import CoreLocation
 
 struct Business: Unboxable {
 
@@ -17,6 +18,9 @@ struct Business: Unboxable {
     let reviewCount: String
     let categories: [[String]]
     let distance: String
+    let latitude: String
+    let longitude: String
+    let location: CLLocation
 
     init(unboxer: Unboxer) throws {
         self.imageUrl = try unboxer.unbox(key: "image_url")
@@ -26,5 +30,8 @@ struct Business: Unboxable {
         self.reviewCount = try unboxer.unbox(key: "review_count")
         self.categories = try unboxer.unbox(key: "categories")
         self.distance = try unboxer.unbox(key: "distance")
+        self.latitude = try unboxer.unbox(keyPath: "location.coordinate.latitude")
+        self.longitude = try unboxer.unbox(keyPath: "location.coordinate.longitude")
+        self.location = CLLocation(latitude: Double(self.latitude)!, longitude: Double(self.longitude)!)
     }
 }

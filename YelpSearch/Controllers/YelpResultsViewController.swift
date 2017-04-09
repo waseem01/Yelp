@@ -73,6 +73,7 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
             self.businesses = results
             self.filteredBusinesses = self.businesses
             self.tableView.reloadData()
+            self.mapView.updateMap(businesses: self.filteredBusinesses)
         }) { error -> Void in
             KRProgressHUD.dismiss()
             print(error)
@@ -110,5 +111,22 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     @IBAction func mapTapped(_ sender: UIBarButtonItem) {
+        let transitionOptions: UIViewAnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
+        UIView.transition(with: self.view, duration: 1.0, options: transitionOptions, animations: {
+            self.mapView.isHidden = !self.mapView.isHidden
+        })
+        sender.title = (self.mapView.isHidden ? "Map" : "List")
     }
+
+    //MARK: Properties
+    private lazy var mapView: MapView = {
+        let location = CLLocation(latitude: self.userLocation.latitude, longitude: self.userLocation.longitude)
+//        let locations = self.filteredBusinesses.flatMap{ $0.location }
+        let view = MapView(userLocation: location, businesses: self.filteredBusinesses)
+        view.frame = self.view.bounds
+        view.backgroundColor = UIColor.white
+        view.isHidden = true
+        self.view.addSubview(view)
+        return view
+    }()
 }
