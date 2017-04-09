@@ -26,27 +26,13 @@ class BusinessCell: UITableViewCell {
         self.businessImageView.clipsToBounds = true
         self.ratingsImageView.setImageWith(URL(string: business.ratingUrl)!)
         self.nameLabel.text = business.name
-        self.distanceLabel.text = formattedDistance(distance: business.distance)
+        self.distanceLabel.text = Utils().formattedDistance(distance: business.distance)
         self.reviewsLabel.text =  business.reviewCount + " Reviews"
         self.addressLabel.text = business.address.joined(separator: ", ")
-        self.categoriesLabel.text = formattedCategories(categoriesArray: business.categories)
+        self.categoriesLabel.text = Utils().formattedCategories(categoriesArray: business.categories)
 
         containerView.layer.shadowOffset = CGSize(width: 0, height: 1)
         containerView.layer.shadowOpacity = 0.25
         containerView.layer.shadowRadius = 2
-    }
-
-    private func formattedDistance(distance: String) -> String {
-        let milesPerMeter = 0.000621371
-        let distance = String(format: "%.2f mi", milesPerMeter * Double(distance)!)
-        return distance
-    }
-
-    private func formattedCategories(categoriesArray: [[String]]) -> String {
-        var categoryNames = [String]()
-        for category in categoriesArray {
-            categoryNames.append(category.first!)
-        }
-        return categoryNames.joined(separator: ", ")
     }
 }

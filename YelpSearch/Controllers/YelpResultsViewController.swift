@@ -11,7 +11,8 @@ import CoreLocation
 import INTULocationManager
 import KRProgressHUD
 
-class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, FiltersViewControllerDelegate {
+class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
+UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
 
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var mapButton: UIBarButtonItem!
@@ -23,6 +24,7 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
     var filteredBusinesses = [Business]()
     var switchStates = [String : AnyObject]()
     var preferredFilters = PreferredFilters(dealOffered: false, distance: 0, sort: 0, categories: [])
+    var isMoreDataLoading = false
 
     var searchTerm: String = "" {
         didSet {
@@ -39,6 +41,10 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
         tableView.estimatedRowHeight = 120
         searchBar.delegate = self
 
+        var insets = tableView.contentInset
+        insets.bottom += activityIndicator.frame.size.height
+        tableView.contentInset = insets
+
         let locationManager = INTULocationManager.sharedInstance()
         locationManager.requestLocation(withDesiredAccuracy: .neighborhood, timeout: 5.0, delayUntilAuthorized: true) { (location, accuracy, status) in
             if location != nil {
@@ -49,10 +55,17 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navigationController = segue.destination as! UINavigationController
-        let filtersViewController = navigationController.topViewController as! YelpFiltersViewController
-        filtersViewController.preferredFilters = preferredFilters
-        filtersViewController.delegate = self
+        if segue.identifier == "showFilters" {
+            let navigationController = segue.destination as! UINavigationController
+            let filtersViewController = navigationController.topViewController as! YelpFiltersViewController
+            filtersViewController.preferredFilters = preferredFilters
+            filtersViewController.delegate = self
+        } else {
+            let yelpDetailsViewController = segue.destination as! YelpDetailsViewController
+            let cell = sender as! BusinessCell
+            let indexPath = tableView.indexPath(for: cell)
+            yelpDetailsViewController.business = businesses[(indexPath?.row)!]
+        }
     }
 
     // MARK: - FiltersViewControllerDelegate
@@ -123,6 +136,9 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
         })
     }
 
+    func loadMoreData() {
+    }
+
     // MARK: - UITableViewDelegate
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { //CHECK this
         return filteredBusinesses.count
@@ -151,6 +167,22 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         performSearch(withTerm: "")
+    }
+
+    // MARK: - UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if (!isMoreDataLoading) {
+            let scrollViewContentHeight = tableView.contentSize.height
+            let scrollOffsetThreshold = scrollViewContentHeight - tableView.bounds.size.height
+            if(scrollView.contentOffset.y > scrollOffsetThreshold && tableView.isDragging) {
+                isMoreDataLoading = true
+                let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: 60)
+                activityIndicator.frame = frame
+                activityIndicator.startAnimating()
+                loadMoreData()
+                activityIndicator.stopAnimating()
+            }
+        }
     }
 
     @IBAction func mapTapped(_ sender: UIBarButtonItem) {
@@ -195,5 +227,13 @@ class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableV
         label.font = UIFont.boldSystemFont(ofSize: 12.0)
         label.text = "No Results, Please adjust your filters & search"
         return label
+    }()
+
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        indicator.frame = CGRect(x: 0, y: self.tableView.contentSize.height, width: self.tableView.bounds.size.width, height: 60)
+        indicator.hidesWhenStopped = true
+        self.tableView.addSubview(indicator)
+        return indicator
     }()
 }

@@ -128,18 +128,31 @@ class YelpFiltersViewController: UIViewController, UITableViewDelegate, UITableV
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let filter = filters[indexPath.section]
         let filterItem = filter.items[indexPath.section]
-//        tableView.deselectRow(at: indexPath, animated: true)
+        var sections = IndexSet(integer: 0)
+        let cell = tableView.cellForRow(at: indexPath)
 
         switch filterItem.type {
         case .distance:
             preferredFilters?.distance = Filters.distances[indexPath.row]["value"] as? NSNumber
+            sections = IndexSet(integer: indexPath.section)
         case .sort:
             preferredFilters?.sort = Filters.sorts[indexPath.row]["value"] as? Int
+            sections = IndexSet(integer: indexPath.section)
         default:
             break
         }
         filter.isExpanded = !filter.isExpanded
-        tableView.reloadData()
+
+        if cell?.reuseIdentifier != "ExpandCell" {
+            UIView.transition(with: self.view,
+                              duration: 0.25,
+                              options: .curveLinear,
+                              animations: { () -> Void in
+                                self.tableView.reloadSections(sections, with: .none)
+            }, completion: nil)
+        } else {
+            self.tableView.reloadData()
+        }
     }
 
     func switchCell(switchCell: SwitchCell, didChange active: Bool) {
