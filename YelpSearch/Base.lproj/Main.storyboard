@@ -125,6 +125,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eiX-rZ-gww">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -132,6 +135,10 @@
                             <constraint firstItem="yYk-li-mMB" firstAttribute="top" secondItem="7IR-KR-hld" secondAttribute="top" id="Of8-p6-CyU"/>
                             <constraint firstAttribute="trailing" secondItem="yYk-li-mMB" secondAttribute="trailing" id="WIW-hu-hG2"/>
                             <constraint firstItem="yYk-li-mMB" firstAttribute="leading" secondItem="7IR-KR-hld" secondAttribute="leading" id="eZM-EU-Aw2"/>
+                            <constraint firstItem="Goh-Py-RAu" firstAttribute="top" secondItem="eiX-rZ-gww" secondAttribute="bottom" id="iRN-fw-kuC"/>
+                            <constraint firstAttribute="trailing" secondItem="eiX-rZ-gww" secondAttribute="trailing" id="jM2-WR-iwq"/>
+                            <constraint firstItem="eiX-rZ-gww" firstAttribute="top" secondItem="l4c-k9-0dd" secondAttribute="bottom" id="jbm-UC-aiS"/>
+                            <constraint firstItem="eiX-rZ-gww" firstAttribute="leading" secondItem="7IR-KR-hld" secondAttribute="leading" id="oyL-N6-Fvb"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="l8v-Fk-Rah">
@@ -155,6 +162,7 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
+                        <outlet property="businessMapView" destination="eiX-rZ-gww" id="9sa-md-nwb"/>
                         <outlet property="filterButton" destination="u36-r3-A6l" id="QjN-2r-7mR"/>
                         <outlet property="mapButton" destination="bwn-Wq-MyV" id="Tcv-6Y-rMZ"/>
                         <outlet property="searchBar" destination="mDC-t9-224" id="W0c-0m-2OV"/>
@@ -254,7 +262,7 @@
                                     <constraint firstItem="0Z6-72-hzM" firstAttribute="top" secondItem="DCC-SV-Vqk" secondAttribute="top" constant="5" id="zBc-rI-7dk"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="n2Z-6J-rHc">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n2Z-6J-rHc">
                                 <rect key="frame" x="0.0" y="187" width="375" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </mapView>
@@ -458,29 +466,8 @@
             </objects>
             <point key="canvasLocation" x="1338.4000000000001" y="183.95802098950526"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="0xj-Pq-042">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sK2-1a-NBz" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9av-op-kQj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Mgf-by-Tyv" kind="relationship" relationship="rootViewController" id="zir-v3-SYo"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6W9-oL-CAm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="520.79999999999995" y="954.87256371814101"/>
-        </scene>
     </scenes>
     <resources>
         <image name="arrow.png" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="zir-v3-SYo"/>
-    </inferredMetricsTieBreakers>
 </document>

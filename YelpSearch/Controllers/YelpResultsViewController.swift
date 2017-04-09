@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import INTULocationManager
 import KRProgressHUD
+import MapKit
 
 class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
 UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
@@ -18,6 +19,8 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
     @IBOutlet weak var mapButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
+    @IBOutlet weak var businessMapView: MKMapView!
+    let regionRadius: CLLocationDistance = 1000
 
     var userLocation = CLLocationCoordinate2D(latitude: 37.785771, longitude: -122.406165) //Default to SF
     var businesses = [Business]()
@@ -87,7 +90,11 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
                 self.businesses = results
                 self.filteredBusinesses = self.businesses
                 self.tableView.reloadData()
-                self.mapView.updateMap(businesses: self.filteredBusinesses)
+                let allAnnotations = self.businessMapView.annotations
+                self.businessMapView.removeAnnotations(allAnnotations)
+                let location = CLLocation(latitude: self.userLocation.latitude, longitude: self.userLocation.longitude)
+                self.centerMapOnLocation(location)
+                self.updateMap()
             } else {
                 KRProgressHUD.dismiss()
                 self.showBannerMessage()
@@ -136,7 +143,22 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
         })
     }
 
-    func loadMoreData() {
+    private func updateMap() {
+        for (business) in businesses {
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = business.location.coordinate
+            annotation.title = business.name
+            annotation.subtitle = business.address.joined(separator: ", ")
+            self.businessMapView.addAnnotation(annotation)
+        }
+    }
+
+    private func centerMapOnLocation(_ location: CLLocation) {
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
+        businessMapView.setRegion(coordinateRegion, animated: true)
+    }
+
+    func loadMoreData() { //TODO API
     }
 
     // MARK: - UITableViewDelegate
@@ -188,22 +210,12 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
     @IBAction func mapTapped(_ sender: UIBarButtonItem) {
         let transitionOptions: UIViewAnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
         UIView.transition(with: self.view, duration: 1.0, options: transitionOptions, animations: {
-            self.mapView.isHidden = !self.mapView.isHidden
+            self.businessMapView.isHidden = !self.businessMapView.isHidden
         })
-        sender.title = (self.mapView.isHidden ? "Map" : "List")
+        sender.title = (self.businessMapView.isHidden ? "Map" : "List")
     }
 
     //MARK: Properties
-    private lazy var mapView: MapView = {
-        let location = CLLocation(latitude: self.userLocation.latitude, longitude: self.userLocation.longitude)
-        //        let locations = self.filteredBusinesses.flatMap{ $0.location }
-        let view = MapView(userLocation: location, businesses: self.filteredBusinesses)
-        view.frame = self.view.bounds
-        view.backgroundColor = UIColor.white
-        view.isHidden = true
-        self.view.addSubview(view)
-        return view
-    }()
 
     private lazy var bannerView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 0))
