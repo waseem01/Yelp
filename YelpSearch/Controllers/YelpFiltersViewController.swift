@@ -16,7 +16,6 @@ class YelpFiltersViewController: UIViewController, UITableViewDelegate, UITableV
 
     @IBOutlet weak var tableView: UITableView!
     var preferredFilters: PreferredFilters?
-
     var filters: [Filter]!
     var delegate: FiltersViewControllerDelegate!
     override func viewDidLoad() {
@@ -24,7 +23,6 @@ class YelpFiltersViewController: UIViewController, UITableViewDelegate, UITableV
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.estimatedRowHeight = 65
         tableView.rowHeight = UITableViewAutomaticDimension
 
         filters = Filters.defaultFilters
@@ -72,7 +70,13 @@ class YelpFiltersViewController: UIViewController, UITableViewDelegate, UITableV
         switch filter.type {
         case .switch:
             if indexPath.row == filter.visibleRowCount {
-                return UITableViewCell()
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ExpandCell")!
+                if filter.visibleRowCount > filter.minNumOfRows {
+                    cell.textLabel?.text = "See Top"
+                } else {
+                    cell.textLabel?.text = "See All"
+                }
+                return cell
             }
 
             if indexPath.section == 0 {
