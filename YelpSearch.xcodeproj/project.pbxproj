@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C0788551E9AAAC1006BC3E9 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0788541E9AAAC1006BC3E9 /* BusinessView.swift */; };
 		1C27E0771E98853A00DD165C /* PreferredFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C27E0761E98853A00DD165C /* PreferredFilters.swift */; };
+		1C7D16F71E9B13080027EB26 /* nearMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7D16F61E9B13080027EB26 /* nearMe.png */; };
 		1C8A6D481E9744E500A7FD81 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8A6D471E9744E500A7FD81 /* arrow.png */; };
 		1C8A6D4A1E9746FE00A7FD81 /* RadioCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C8A6D491E9746FE00A7FD81 /* RadioCell.swift */; };
 		1C94D1741E968AAE00EF9023 /* Filters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C94D1731E968AAE00EF9023 /* Filters.swift */; };
@@ -33,6 +34,7 @@
 		16BD856480B9E597B207118B /* Pods-YelpSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YelpSearch.release.xcconfig"; path = "Pods/Target Support Files/Pods-YelpSearch/Pods-YelpSearch.release.xcconfig"; sourceTree = "<group>"; };
 		1C0788541E9AAAC1006BC3E9 /* BusinessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusinessView.swift; path = Views/BusinessView.swift; sourceTree = "<group>"; };
 		1C27E0761E98853A00DD165C /* PreferredFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferredFilters.swift; path = Models/PreferredFilters.swift; sourceTree = "<group>"; };
+		1C7D16F61E9B13080027EB26 /* nearMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nearMe.png; path = Resources/nearMe.png; sourceTree = "<group>"; };
 		1C8A6D471E9744E500A7FD81 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
 		1C8A6D491E9746FE00A7FD81 /* RadioCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RadioCell.swift; path = Views/RadioCell.swift; sourceTree = "<group>"; };
 		1C94D1731E968AAE00EF9023 /* Filters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Filters.swift; path = Models/Filters.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		1CCF18291E9316AE00400418 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1C7D16F61E9B13080027EB26 /* nearMe.png */,
 				1CE164651E9A5D9600A596B2 /* Error.png */,
 				1C8A6D471E9744E500A7FD81 /* arrow.png */,
 			);
@@ -245,6 +248,7 @@
 				1CCF181A1E93157700400418 /* Main.storyboard in Resources */,
 				1CE164661E9A5D9600A596B2 /* Error.png in Resources */,
 				1C8A6D481E9744E500A7FD81 /* arrow.png in Resources */,
+				1C7D16F71E9B13080027EB26 /* nearMe.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

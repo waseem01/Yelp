@@ -120,7 +120,7 @@
                                             <outlet property="nameLabel" destination="iJG-vB-Jw5" id="Fsc-IH-S3w"/>
                                             <outlet property="ratingsImageView" destination="LH4-fQ-lMP" id="15v-Qa-dET"/>
                                             <outlet property="reviewsLabel" destination="Fnx-CB-d7f" id="exB-mu-7SM"/>
-                                            <segue destination="Mgf-by-Tyv" kind="show" id="gdE-4m-GXk"/>
+                                            <segue destination="Mgf-by-Tyv" kind="show" identifier="showDetails" id="gdE-4m-GXk"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -128,13 +128,23 @@
                             <mapView hidden="YES" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eiX-rZ-gww">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </mapView>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nearMe.png" translatesAutoresizingMaskIntoConstraints="NO" id="xd3-qv-YTu">
+                                <rect key="frame" x="5" y="622" width="40" height="40"/>
+                                <color key="tintColor" red="0.8334480246" green="0.0086817502559999992" blue="0.0086817502559999992" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="MWG-tf-2ut"/>
+                                    <constraint firstAttribute="width" constant="40" id="QsB-Rh-93d"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Goh-Py-RAu" firstAttribute="top" secondItem="yYk-li-mMB" secondAttribute="bottom" id="EtF-qW-uhD"/>
                             <constraint firstItem="yYk-li-mMB" firstAttribute="top" secondItem="7IR-KR-hld" secondAttribute="top" id="Of8-p6-CyU"/>
                             <constraint firstAttribute="trailing" secondItem="yYk-li-mMB" secondAttribute="trailing" id="WIW-hu-hG2"/>
+                            <constraint firstItem="xd3-qv-YTu" firstAttribute="leading" secondItem="7IR-KR-hld" secondAttribute="leading" constant="5" id="bnc-S1-i3V"/>
                             <constraint firstItem="yYk-li-mMB" firstAttribute="leading" secondItem="7IR-KR-hld" secondAttribute="leading" id="eZM-EU-Aw2"/>
+                            <constraint firstItem="Goh-Py-RAu" firstAttribute="top" secondItem="xd3-qv-YTu" secondAttribute="bottom" constant="5" id="iF6-Eo-hj8"/>
                             <constraint firstItem="Goh-Py-RAu" firstAttribute="top" secondItem="eiX-rZ-gww" secondAttribute="bottom" id="iRN-fw-kuC"/>
                             <constraint firstAttribute="trailing" secondItem="eiX-rZ-gww" secondAttribute="trailing" id="jM2-WR-iwq"/>
                             <constraint firstItem="eiX-rZ-gww" firstAttribute="top" secondItem="l4c-k9-0dd" secondAttribute="bottom" id="jbm-UC-aiS"/>
@@ -165,6 +175,7 @@
                         <outlet property="businessMapView" destination="eiX-rZ-gww" id="9sa-md-nwb"/>
                         <outlet property="filterButton" destination="u36-r3-A6l" id="QjN-2r-7mR"/>
                         <outlet property="mapButton" destination="bwn-Wq-MyV" id="Tcv-6Y-rMZ"/>
+                        <outlet property="nearMeImageView" destination="xd3-qv-YTu" id="XJD-V5-glq"/>
                         <outlet property="searchBar" destination="mDC-t9-224" id="W0c-0m-2OV"/>
                         <outlet property="tableView" destination="yYk-li-mMB" id="Bgj-MU-JQ2"/>
                     </connections>
@@ -237,6 +248,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
+                                <color key="backgroundColor" red="1" green="0.010361843623864941" blue="0.020309211252755088" alpha="0.061509683098591547" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="65M-U9-eqT"/>
                                     <constraint firstItem="u7H-pi-9sL" firstAttribute="leading" secondItem="DCC-SV-Vqk" secondAttribute="leading" id="89K-Zk-m4D"/>
@@ -262,16 +274,19 @@
                                     <constraint firstItem="0Z6-72-hzM" firstAttribute="top" secondItem="DCC-SV-Vqk" secondAttribute="top" constant="5" id="zBc-rI-7dk"/>
                                 </constraints>
                             </view>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n2Z-6J-rHc">
-                                <rect key="frame" x="0.0" y="187" width="375" height="480"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n2Z-6J-rHc">
+                                <rect key="frame" x="0.0" y="184" width="375" height="483"/>
                             </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="n2Z-6J-rHc" firstAttribute="top" secondItem="DCC-SV-Vqk" secondAttribute="bottom" id="44Y-ZW-vt8"/>
                             <constraint firstAttribute="trailing" secondItem="DCC-SV-Vqk" secondAttribute="trailing" id="7CA-5M-bIZ"/>
+                            <constraint firstItem="BCJ-tY-e3B" firstAttribute="top" secondItem="n2Z-6J-rHc" secondAttribute="bottom" id="8xl-0Q-1Ws"/>
+                            <constraint firstAttribute="trailing" secondItem="n2Z-6J-rHc" secondAttribute="trailing" id="Deq-0Z-I9c"/>
                             <constraint firstItem="DCC-SV-Vqk" firstAttribute="top" secondItem="Tzn-rI-gR1" secondAttribute="bottom" id="HSa-Wc-m4L"/>
                             <constraint firstItem="DCC-SV-Vqk" firstAttribute="leading" secondItem="uuU-Yq-Jq5" secondAttribute="leading" id="ill-Zh-GqK"/>
+                            <constraint firstItem="n2Z-6J-rHc" firstAttribute="leading" secondItem="uuU-Yq-Jq5" secondAttribute="leading" id="qXI-0z-QTL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="95U-iy-EXI"/>
@@ -469,5 +484,6 @@
     </scenes>
     <resources>
         <image name="arrow.png" width="30" height="30"/>
+        <image name="nearMe.png" width="48" height="48"/>
     </resources>
 </document>

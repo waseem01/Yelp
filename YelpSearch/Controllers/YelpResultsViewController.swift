@@ -20,7 +20,9 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate, MKMapV
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var searchBar: UISearchBar!
     @IBOutlet weak var businessMapView: MKMapView!
+    @IBOutlet weak var nearMeImageView: UIImageView!
     let regionRadius: CLLocationDistance = 1000
+    let yelpRed = UIColor(red:0.77, green:0.07, blue:0.00, alpha:1.00)
 
     var userLocation = CLLocationCoordinate2D(latitude: 37.785771, longitude: -122.406165) //Default to SF
     var businesses = [Business]()
@@ -49,13 +51,9 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate, MKMapV
         insets.bottom += activityIndicator.frame.size.height
         tableView.contentInset = insets
 
-        let locationManager = INTULocationManager.sharedInstance()
-        locationManager.requestLocation(withDesiredAccuracy: .neighborhood, timeout: 5.0, delayUntilAuthorized: true) { (location, accuracy, status) in
-            if location != nil {
-                self.userLocation = (location?.coordinate)!
-            }
-            self.performSearch(withTerm: "")
-        }
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(nearMeTapped))
+        nearMeImageView.addGestureRecognizer(tapRecognizer)
+        locateAndSearch()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -168,7 +166,21 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate, MKMapV
         businessMapView.setRegion(coordinateRegion, animated: true)
     }
 
-    func loadMoreData() { //TODO API
+    private func loadMoreData() { //TODO API
+    }
+
+    @objc private func nearMeTapped() {
+        locateAndSearch()
+    }
+
+    private func locateAndSearch() {
+        let locationManager = INTULocationManager.sharedInstance()
+        locationManager.requestLocation(withDesiredAccuracy: .neighborhood, timeout: 5.0, delayUntilAuthorized: true) { (location, accuracy, status) in
+            if location != nil {
+                self.userLocation = (location?.coordinate)!
+            }
+            self.performSearch(withTerm: "")
+        }
     }
 
     // MARK: - UITableViewDelegate
@@ -219,7 +231,7 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate, MKMapV
 
     // MARK: - MKMapViewDelegate
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        self.performSegue(withIdentifier: "showDetails", sender: view)
+        performSegue(withIdentifier: "showDetails", sender: view)
     }
 
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -227,7 +239,7 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate, MKMapV
         annotationView.canShowCallout = true
         annotationView.calloutOffset = CGPoint(x: -5, y: 5)
         annotationView.rightCalloutAccessoryView = UIButton(type: .infoLight) as UIView
-        annotationView.pinTintColor = UIColor(red:0.77, green:0.07, blue:0.00, alpha:1.00)
+        annotationView.pinTintColor = yelpRed
         return annotationView
     }
 
@@ -236,7 +248,7 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate, MKMapV
         UIView.transition(with: self.view, duration: 1.0, options: transitionOptions, animations: {
             self.businessMapView.isHidden = !self.businessMapView.isHidden
         })
-        sender.title = (self.businessMapView.isHidden ? "Map" : "List")
+        sender.title = (businessMapView.isHidden ? "Map" : "List")
     }
 
     //MARK: Properties

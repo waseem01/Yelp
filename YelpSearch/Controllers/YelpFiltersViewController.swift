@@ -155,6 +155,7 @@ class YelpFiltersViewController: UIViewController, UITableViewDelegate, UITableV
         }
     }
 
+    //MARK: SwitchCellDelegate
     func switchCell(switchCell: SwitchCell, didChange active: Bool) {
         let indexPath = tableView.indexPath(for: switchCell)
         let filter = filters[(indexPath?.section)!]

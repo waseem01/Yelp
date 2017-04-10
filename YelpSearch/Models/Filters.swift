@@ -10,10 +10,6 @@ import Foundation
 
 struct Filters {
 
-    //    let distance = ["0.3","1","5","20"]
-    //    let sort = ["Best Match","Distance","Rating","Most Reviewed"]
-    //    let category = ["Afghan"]
-
     static let defaultFilters1: [Filter] = [
         Filter(
             title: "",

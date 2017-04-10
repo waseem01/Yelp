@@ -73,7 +73,7 @@ class YelpDetailsViewController: UIViewController {
         let geoCoder = CLGeocoder ()
 
         geoCoder.reverseGeocodeLocation(business.location, completionHandler: { (placemarks, error) -> Void in
-                self.businessMapView.showAnnotations([annotation], animated: true)
+            self.businessMapView.showAnnotations([annotation], animated: true)
         })
     }
 }
