@@ -13,7 +13,7 @@ import KRProgressHUD
 import MapKit
 
 class YelpResultsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource,
-UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
+UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var filterButton: UIBarButtonItem!
     @IBOutlet weak var mapButton: UIBarButtonItem!
@@ -43,6 +43,7 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 120
         searchBar.delegate = self
+        businessMapView.delegate = self
 
         var insets = tableView.contentInset
         insets.bottom += activityIndicator.frame.size.height
@@ -64,10 +65,19 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
             filtersViewController.preferredFilters = preferredFilters
             filtersViewController.delegate = self
         } else {
+            var business: Business?
+            if sender is MKAnnotationView {
+                let annotationView = sender as! MKAnnotationView
+                let businessName = businesses.flatMap({$0.name})
+                let index = businessName.index(of: ((annotationView.annotation?.title)!)!)
+                business = businesses[index!]
+            } else {
+                let cell = sender as! BusinessCell
+                let indexPath = tableView.indexPath(for: cell)
+                business = businesses[(indexPath?.row)!]
+            }
             let yelpDetailsViewController = segue.destination as! YelpDetailsViewController
-            let cell = sender as! BusinessCell
-            let indexPath = tableView.indexPath(for: cell)
-            yelpDetailsViewController.business = businesses[(indexPath?.row)!]
+            yelpDetailsViewController.business = business
         }
     }
 
@@ -207,6 +217,20 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
         }
     }
 
+    // MARK: - MKMapViewDelegate
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        self.performSegue(withIdentifier: "showDetails", sender: view)
+    }
+
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        let annotationView = MKPinAnnotationView()
+        annotationView.canShowCallout = true
+        annotationView.calloutOffset = CGPoint(x: -5, y: 5)
+        annotationView.rightCalloutAccessoryView = UIButton(type: .infoLight) as UIView
+        annotationView.pinTintColor = UIColor(red:0.77, green:0.07, blue:0.00, alpha:1.00)
+        return annotationView
+    }
+
     @IBAction func mapTapped(_ sender: UIBarButtonItem) {
         let transitionOptions: UIViewAnimationOptions = [.transitionFlipFromRight, .showHideTransitionViews]
         UIView.transition(with: self.view, duration: 1.0, options: transitionOptions, animations: {
@@ -216,7 +240,6 @@ UISearchBarDelegate, UIScrollViewDelegate, FiltersViewControllerDelegate {
     }
 
     //MARK: Properties
-
     private lazy var bannerView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: self.tableView.frame.width, height: 0))
         view.backgroundColor = UIColor.darkGray
