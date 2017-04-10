@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C0788551E9AAAC1006BC3E9 /* BusinessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0788541E9AAAC1006BC3E9 /* BusinessView.swift */; };
 		1C27E0771E98853A00DD165C /* PreferredFilters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C27E0761E98853A00DD165C /* PreferredFilters.swift */; };
 		1C7D16F71E9B13080027EB26 /* nearMe.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C7D16F61E9B13080027EB26 /* nearMe.png */; };
 		1C8A6D481E9744E500A7FD81 /* arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C8A6D471E9744E500A7FD81 /* arrow.png */; };
@@ -32,7 +31,6 @@
 
 /* Begin PBXFileReference section */
 		16BD856480B9E597B207118B /* Pods-YelpSearch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YelpSearch.release.xcconfig"; path = "Pods/Target Support Files/Pods-YelpSearch/Pods-YelpSearch.release.xcconfig"; sourceTree = "<group>"; };
-		1C0788541E9AAAC1006BC3E9 /* BusinessView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BusinessView.swift; path = Views/BusinessView.swift; sourceTree = "<group>"; };
 		1C27E0761E98853A00DD165C /* PreferredFilters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreferredFilters.swift; path = Models/PreferredFilters.swift; sourceTree = "<group>"; };
 		1C7D16F61E9B13080027EB26 /* nearMe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = nearMe.png; path = Resources/nearMe.png; sourceTree = "<group>"; };
 		1C8A6D471E9744E500A7FD81 /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = arrow.png; path = Resources/arrow.png; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				1CCFECFB1E948D7E00AB9485 /* BusinessCell.swift */,
 				1C94D1791E96A4EB00EF9023 /* SwitchCell.swift */,
 				1C8A6D491E9746FE00A7FD81 /* RadioCell.swift */,
-				1C0788541E9AAAC1006BC3E9 /* BusinessView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -307,7 +304,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1C0788551E9AAAC1006BC3E9 /* BusinessView.swift in Sources */,
 				1CCF18151E93157700400418 /* AppDelegate.swift in Sources */,
 				1CE12D2E1E93F5860069DC0B /* Business.swift in Sources */,
 				1C94D17A1E96A4EB00EF9023 /* SwitchCell.swift in Sources */,

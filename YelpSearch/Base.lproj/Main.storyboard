@@ -201,7 +201,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCC-SV-Vqk" customClass="BusinessView" customModule="YelpSearch" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCC-SV-Vqk">
                                 <rect key="frame" x="0.0" y="64" width="375" height="120"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="u7H-pi-9sL">
@@ -294,7 +294,7 @@
                         <outlet property="addressLabel" destination="e6f-Eq-v3P" id="YSx-C1-SKi"/>
                         <outlet property="businessImageView" destination="u7H-pi-9sL" id="KC9-DH-1Yi"/>
                         <outlet property="businessMapView" destination="n2Z-6J-rHc" id="6Cf-EH-K1R"/>
-                        <outlet property="businessView" destination="DCC-SV-Vqk" id="9jO-jP-laD"/>
+                        <outlet property="businessView" destination="DCC-SV-Vqk" id="kje-bP-W64"/>
                         <outlet property="categoriesLabel" destination="Ybe-fb-Ttp" id="bHT-Fn-Myd"/>
                         <outlet property="distanceLabel" destination="0Z6-72-hzM" id="biF-NT-23o"/>
                         <outlet property="nameLabel" destination="Bor-kF-BmR" id="QCX-Yr-OQF"/>

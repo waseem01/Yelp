@@ -13,7 +13,7 @@ import AFNetworking
 class YelpDetailsViewController: UIViewController {
 
     @IBOutlet weak var businessMapView: MKMapView!
-    @IBOutlet weak var businessView: BusinessView!
+    @IBOutlet weak var businessView: UIView!
     @IBOutlet weak var businessImageView: UIImageView!
     @IBOutlet weak var ratingsImageView: UIImageView!
     @IBOutlet weak var addressLabel: UILabel!
